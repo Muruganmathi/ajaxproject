@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Simple Fetch Example</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin-top: 50px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      border: none;
+      background: #28a745;
+      color: white;
+      border-radius: 5px;
+    }
+    button:hover {
+      background: #1e7e34;
+    }
+    #result {
+      margin-top: 20px;
+      padding: 15px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      display: inline-block;
+      min-width: 200px;
+    }
+  </style>
+</head>
+<body>
+  <h2>AJAX with Fetch</h2>
+  <button onclick="loadData()">Get Random Joke</button>
+  <div id="result">Click the button to fetch data...</div>
+
+  <script>
+    function loadData() {
+      fetch("https://official-joke-api.appspot.com/random_joke")
+        .then(response => {
+          if (!response.ok) {
+            throw new Error("Network response was not ok");
+          }
+          return response.json();
+        })
+        .then(data => {
+          document.getElementById("result").innerHTML =
+            `<b>${data.setup}</b><br>${data.punchline}`;
+        })
+        .catch(error => {
+          document.getElementById("result").innerHTML = "Error: " + error.message;
+        });
+    }
+  </script>
+</body>
+</html>
